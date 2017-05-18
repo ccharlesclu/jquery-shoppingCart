@@ -37,6 +37,18 @@
 
 		<div class="result-prodID"><span></span></div>
 		<div class="result-prodQuantity"><span></span></div>
+
+		<section id="cart-view">
+		    <ul>
+			<li class="cart-product">
+			    <a class="delete-prod" onclick="removeFromCart()">X</a>
+			    <img id="prod-id-" src="domain/directory/imageName">
+			    <span class="prod-name">Bottle o stuff</span>
+			    <input class="prod-quantity" type="number" value="4">
+			    <input type="submit" value="update">
+			</li>
+		    </ul>
+		</section>
 	</div> <!-- #page -->
         
     <script>
