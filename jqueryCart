@@ -256,7 +256,7 @@
 			// Update product count in cart link text
 			//$('#cart-total').text( cartQty );
             
-            console.log(prodval);
+            //console.log(prodval);
 		}
 		return false;
 	})
