@@ -53,6 +53,7 @@
         
     <script>
         var cart = [];
+        
         var Item = function(id, qty){
             this.id = id
             this.qty = qty
@@ -81,28 +82,33 @@
             }
         }
         
-        var urlPrint = '';
-        
-        function printLink(itemRef){
-            var urlProduct = '';
-            var urlpart0 = 'https://extranet.securefreedom.com/GHTHealth/Order/shop.asp?itemCount=';
-            var urlpartreturn = '&ReturnURL=http://vibrantnutra.com/vibrantshop.aspx';
-            var urlpartsignup = '&SignupType=';
-            var urlpartrep = '';
-            for(var i in cart){
-                var urlItem = '&item' + i + '=' + itemRef + '&qnt' + i + '=' + cart[i].qty;
-                urlProduct += urlItem;
-            }
-            urlPrint = urlpart0 + urlProduct + urlpartreturn + urlpartsignup + urlpartrep;
-            console.log(urlPrint);
-        }
-        
         function cartCount(){
             var cartQty = 0;
             for(var i in cart){
                 cartQty += cart[i].qty;
             }
             $('#cart-total').text( cartQty );
+        }
+
+        var urlPrint = '';
+        
+        function printLink(){
+            var urlpart0 = 'https://extranet.securefreedom.com/GHTHealth/Order/shop.asp?itemCount=';
+            var urlpartreturn = '&ReturnURL=http://vibrantnutra.com/vibrantshop.aspx';
+            var urlpartsignup = '&SignupType=';
+            var urlpartrep = '';
+            for(var i in cart){
+                var urlItem = '&item' + i + '=' + cart[i].id + '&qnt' + i + '=' + cart[i].qty;
+                urlProduct += urlItem;
+            }
+            urlPrint = urlpart0 + urlProduct + urlpartreturn + urlpartsignup + urlpartrep;
+            console.log(urlPrint);
+        }
+        
+        function update(){
+            cartCount();
+            printLink();
+            console.log(cart);
         }
 
     </script>
@@ -140,6 +146,7 @@
         var selQty = $('.selQty').val();
         addItemToCart($(this).attr('href'), parseInt(selQty));
         cartCount();
+        printLink();
         console.log(cart);
         
         return false;
@@ -147,9 +154,7 @@
     
     $('.btn-removeFromCart').click(function(){
         removeFromCart($(this).attr('href'));
-        console.log(cart);
-        printLink($(this).attr('href'));
-        cartCount();
+        update();
         
         var urlpart0 = 'https://extranet.securefreedom.com/GHTHealth/Order/shop.asp?itemCount=';
 		var urlpartreturn = '&ReturnURL=http://vibrantnutra.com/vibrantshop.aspx';
@@ -211,9 +216,7 @@
         
         // CHRIS
         addItemToCart($(this).attr('href'), 1);
-        console.log(cart);
-        printLink($(this).attr('href'));
-        cartCount();
+        update();
         
         var urlpart0 = 'https://extranet.securefreedom.com/GHTHealth/Order/shop.asp?itemCount=';
 		var urlpartreturn = '&ReturnURL=http://vibrantnutra.com/vibrantshop.aspx';
