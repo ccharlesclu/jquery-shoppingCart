@@ -93,6 +93,7 @@
         var urlPrint = '';
         
         function printLink(){
+			var urlProduct = '';
             var urlpart0 = 'https://extranet.securefreedom.com/GHTHealth/Order/shop.asp?itemCount=';
             var urlpartreturn = '&ReturnURL=http://vibrantnutra.com/vibrantshop.aspx';
             var urlpartsignup = '&SignupType=';
