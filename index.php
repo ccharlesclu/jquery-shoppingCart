@@ -49,6 +49,12 @@
 			</li>
 		    </ul>
 		</section>
+        
+        <div>
+            <ul id="show-cart">
+                <!-- -->
+            </ul>
+        </div>
 	</div> <!-- #page -->
         
     <script>
@@ -93,7 +99,7 @@
         var urlPrint = '';
         
         function printLink(){
-			var urlProduct = '';
+            var urlProduct = '';
             var urlpart0 = 'https://extranet.securefreedom.com/GHTHealth/Order/shop.asp?itemCount=';
             var urlpartreturn = '&ReturnURL=http://vibrantnutra.com/vibrantshop.aspx';
             var urlpartsignup = '&SignupType=';
@@ -106,10 +112,19 @@
             console.log(urlPrint);
         }
         
-        function update(){
+        function refresh(){
             cartCount();
             printLink();
+            displayCart();
             console.log(cart);
+        }
+        
+        function displayCart(){
+            var output = "";
+            for(var i in cart){
+                output += "<li>"+cart[i].id+" "+cart[i].qty+"</li>"
+            }
+            $("#show-cart").html(output);
         }
 
     </script>
@@ -146,16 +161,14 @@
     $('.submit-addToCart').click(function() {        
         var selQty = $('.selQty').val();
         addItemToCart($(this).attr('href'), parseInt(selQty));
-        cartCount();
-        printLink();
-        console.log(cart);
+        refresh();
         
         return false;
 	});
     
     $('.btn-removeFromCart').click(function(){
         removeFromCart($(this).attr('href'));
-        update();
+        refresh();
         
         var urlpart0 = 'https://extranet.securefreedom.com/GHTHealth/Order/shop.asp?itemCount=';
 		var urlpartreturn = '&ReturnURL=http://vibrantnutra.com/vibrantshop.aspx';
@@ -217,7 +230,7 @@
         
         // CHRIS
         addItemToCart($(this).attr('href'), 1);
-        update();
+        refresh();
         
         var urlpart0 = 'https://extranet.securefreedom.com/GHTHealth/Order/shop.asp?itemCount=';
 		var urlpartreturn = '&ReturnURL=http://vibrantnutra.com/vibrantshop.aspx';
