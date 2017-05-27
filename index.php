@@ -40,6 +40,7 @@
 
 		<section id="cart-view">
 		    <ul>
+<!--
 			<li class="cart-product">
 			    <a class="delete-prod" onclick="removeFromCart()">X</a>
 			    <img id="prod-id-" src="domain/directory/imageName">
@@ -47,6 +48,7 @@
 			    <input class="prod-quantity" type="number" value="4">
 			    <input type="submit" value="update">
 			</li>
+-->
 		    </ul>
 		</section>
         
@@ -58,6 +60,16 @@
 	</div> <!-- #page -->
         
     <script>
+        function displayCart(){
+            var output = "";
+            for(var i in cart){
+                //need to do update button - either all in one (prod-name-id to array) or by line
+                //innerHTML to get return
+                output += "<li><img id='prod-id-' src='domain/directory/imageName'><span class='prod-name prod-name-"+cart[i].id+"'>"+cart[i].id+"</span><input class='prod-quantity' type='number' value='"+cart[i].qty+"'><input type='submit' value='update'><a class='delete-prod' onclick='removeFromCart("+cart[i].id+")'>X</a></li>"
+            }
+            $("#cart-view").html(output);
+        }
+        
         var cart = [];
         
         var Item = function(id, qty){
@@ -86,6 +98,7 @@
                     break;
                 }
             }
+            refresh();
         }
         
         function cartCount(){
@@ -117,14 +130,6 @@
             printLink();
             displayCart();
             console.log(cart);
-        }
-        
-        function displayCart(){
-            var output = "";
-            for(var i in cart){
-                output += "<li>"+cart[i].id+" "+cart[i].qty+"</li>"
-            }
-            $("#show-cart").html(output);
         }
 
     </script>
