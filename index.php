@@ -17,7 +17,7 @@
 			<div class="product-image"></div>
 			<form onSubmit="addItemToCart();">
 				<select class="prod-quantity selQty" name="prodQuantity"></select>
-				<input type="submit" class ="submit-addToCart" value="Add to Cart" href="106100">
+				<input type="submit" class="submit-addToCart" value="Add to Cart" href="106100">
 			</form>
 		</div> <!-- .product -->
 
@@ -65,7 +65,13 @@
             for(var i in cart){
                 //need to do update button - either all in one (prod-name-id to array) or by line
                 //innerHTML to get return
-                output += "<li><img id='prod-id-' src='domain/directory/imageName'><span class='prod-name prod-name-"+cart[i].id+"'>"+cart[i].id+"</span><input class='prod-quantity' type='number' value='"+cart[i].qty+"'><input type='submit' value='update'><a class='delete-prod' onclick='removeFromCart("+cart[i].id+")'>X</a></li>"
+                output += "<li>"
+                    +"<img id='prod-id-' src='domain/directory/imageName'>"
+                    +"<span class='prod-name prod-name-"+cart[i].id+"'>"+cart[i].id+"</span>"
+                    +"<input class='prod-input' type='number' data-name='"+cart[i].id+"' value='"+cart[i].qty+"'>"
+                    +"<input type='submit' value='update'>"
+                    +"<a class='delete-prod' onclick='removeFromCart("+cart[i].id+")'>X</a>"
+                    +"</li>"
             }
             $("#cart-view").html(output);
         }
@@ -91,7 +97,7 @@
         function removeFromCart(id){
             for(var i in cart){
                 if(cart[i].id == id){
-                    cart[i].qty --;
+                    cart[i].qty = 0;
                     if(cart[i].qty === 0){
                         cart.splice(i, 1);
                     }
@@ -131,6 +137,15 @@
             displayCart();
             console.log(cart);
         }
+        
+        function setCountForItem(id, qty){
+            for(var i in cart){
+                if(this.cart[i].id === id){
+                    this.cart[i].qty = qty;
+                }
+            }
+            refresh();
+        }
 
     </script>
 
@@ -163,10 +178,18 @@
 		}
 	});
     
+    $("#cart-view").on("change", ".prod-input", function(event){
+        var name = $(this).attr("data-name");
+        var count = Number($(this).val());
+        console.log("Cart changed: "+name+", "+count);
+        setCountForItem(name, count);
+    });
+    
     $('.submit-addToCart').click(function() {        
         var selQty = $('.selQty').val();
         addItemToCart($(this).attr('href'), parseInt(selQty));
         refresh();
+        console.log("testing AddToCart");
         
         return false;
 	});
