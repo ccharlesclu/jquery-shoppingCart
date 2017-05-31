@@ -9,7 +9,7 @@
     
 <body>
 	<div id="page">
-		<div id="cart"><a href="#">cart (<span id="cart-total">0</span>)</a></div>
+		<div id="cart"><a href="#">cart (<span id="cart-total">cartCount</span>)</a></div>
 
 		<h1>Cart Test</h1>
 
@@ -68,8 +68,8 @@
                 output += "<li>"
                     +"<img id='prod-id-' src='domain/directory/imageName'>"
                     +"<span class='prod-name prod-name-"+cart[i].id+"'>"+cart[i].id+"</span>"
-                    +"<input class='prod-input' type='number' data-name='"+cart[i].id+"' value='"+cart[i].qty+"'>"
-                    +"<input type='submit' value='update'>"
+                    +"<input class='prod-input' type='number' data-name='"+cart[i].id+"'value='"+cart[i].qty+"'>"
+                    +"<input type='submit' value='update'>" //for submit button use FORM to get relationship (shouldn't need form action because we're using JS -- maybe need get?  probably not)
                     +"<a class='delete-prod' onclick='removeFromCart("+cart[i].id+")'>X</a>"
                     +"</li>"
             }
@@ -77,6 +77,7 @@
         }
         
         var cart = [];
+        var cartCount = 0;
         
         var Item = function(id, qty){
             this.id = id
@@ -85,7 +86,7 @@
         
         function addItemToCart(id, qty){
             for(var i in cart){
-                if(cart[i].id == id){
+                if (cart[i].id == id) {
                     cart[i].qty += qty;
                     return;
                 }
@@ -96,9 +97,9 @@
         
         function removeFromCart(id){
             for(var i in cart){
-                if(cart[i].id == id){
+                if (cart[i].id == id) {
                     cart[i].qty = 0;
-                    if(cart[i].qty === 0){
+                    if (cart[i].qty === 0) {
                         cart.splice(i, 1);
                     }
                     break;
@@ -107,12 +108,13 @@
             refresh();
         }
         
-        function cartCount(){
+        function refreshCart(){
             var cartQty = 0;
             for(var i in cart){
                 cartQty += cart[i].qty;
             }
-            $('#cart-total').text( cartQty );
+            cartCount = Number(cartQty);
+            $('#cart-total').text( cartCount );
         }
 
         var urlPrint = '';
@@ -132,9 +134,10 @@
         }
         
         function refresh(){
-            cartCount();
+            refreshCart();
             printLink();
             displayCart();
+            storeArray(cart);
             console.log(cart);
         }
         
@@ -146,6 +149,20 @@
             }
             refresh();
         }
+        
+        function storeArray(array){
+            var cartString = JSON.stringify(array);
+            Cookies.set('cartCookie', cartString);
+        }
+        
+        function retrieveCookie(cookie){
+            if (document.cookie.indexOf('cartCookie') > -1) {
+                cartString = Cookies.get(cookie);
+                cart = JSON.parse(cartString);
+            } else {
+                cart = [];   
+            }
+        }
 
     </script>
 
@@ -155,19 +172,23 @@
 <script type="text/javascript">
     
 	$(document).ready(function() {
+        
+        retrieveCookie('cartCookie');
+        refresh();
+        
 		var cooktest = Cookies.get('dara');
-		var prodcount = Cookies.get('prodcount');
-		var carturl = Cookies.get('cartpath');
+		var prodcount = Cookies.get('prodcount'); //don't think we need this now
+		var carturl = Cookies.get('cartpath'); //switch to new URL
 		if (cooktest != "" && cooktest != null) {
 			$('#cart a').attr( 'href', carturl );
 			//$('#cart-total').text( prodcount );
-            cartCount();
+            refreshCart();
 		}
 
-		var tProdID = Cookies.get('testProdID');
-		var tProdQty = Cookies.get('testProdQty');
-		$('.result-prodID').text( tProdID );
-		$('.result-prodQuantity').text( tProdQty );
+		var tProdID = Cookies.get('testProdID'); //was for testing
+		var tProdQty = Cookies.get('testProdQty'); //was for testing
+		$('.result-prodID').text( tProdID ); //was for testing
+		$('.result-prodQuantity').text( tProdQty ); //was for testing
 	})
 
 	$(function(){
@@ -189,7 +210,6 @@
         var selQty = $('.selQty').val();
         addItemToCart($(this).attr('href'), parseInt(selQty));
         refresh();
-        console.log("testing AddToCart");
         
         return false;
 	});
@@ -203,6 +223,7 @@
 		var urlpartsignup = '&SignupType=';
 		var urlpartrep = '';
 
+        //repid can be appended on at the end - don't need now
 		var repidtest = Cookies.get(itemnum);
 //		var urlpartrep = '&RepID=' + repidtest;
 		if (repidtest == "" || repidtest == null || repidtest == "0") {
@@ -332,18 +353,19 @@
 	$('#clearcook').click(function() {
                 
         cart = [];
+        Cookies.remove('cartCookie');
+        refresh();
         console.log(cart)
-        cartQty = 0;
-        urlPrint = '';
+        urlPrint = ''
         
 		// Clear cookies and reset cart link and count
 		Cookies.remove('dara');
 		Cookies.remove('tProdID');
 		Cookies.remove('tProdQty');
-		$('#cart a').attr( 'href', '#' );
-		$('#cart-total').text( '0' );
-		$('.result-prodID').text( '0' );
-		$('.result-prodQuantity').text( '0' );
+		//$('#cart a').attr( 'href', '#' );
+		//$('#cart-total').text( '0' );
+		//$('.result-prodID').text( '0' );
+		//$('.result-prodQuantity').text( '0' );
 		return false;
 	})
 </script>
