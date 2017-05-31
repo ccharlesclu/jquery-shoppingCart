@@ -40,23 +40,9 @@
 
 		<section id="cart-view">
 		    <ul>
-<!--
-			<li class="cart-product">
-			    <a class="delete-prod" onclick="removeFromCart()">X</a>
-			    <img id="prod-id-" src="domain/directory/imageName">
-			    <span class="prod-name">Bottle o stuff</span>
-			    <input class="prod-quantity" type="number" value="4">
-			    <input type="submit" value="update">
-			</li>
--->
 		    </ul>
 		</section>
         
-        <div>
-            <ul id="show-cart">
-                <!-- -->
-            </ul>
-        </div>
 	</div> <!-- #page -->
         
     <script>
@@ -217,157 +203,27 @@
     $('.btn-removeFromCart').click(function(){
         removeFromCart($(this).attr('href'));
         refresh();
-        
-        var urlpart0 = 'https://extranet.securefreedom.com/GHTHealth/Order/shop.asp?itemCount=';
-		var urlpartreturn = '&ReturnURL=http://vibrantnutra.com/vibrantshop.aspx';
-		var urlpartsignup = '&SignupType=';
-		var urlpartrep = '';
 
-        //repid can be appended on at the end - don't need now
-		var repidtest = Cookies.get(itemnum);
-//		var urlpartrep = '&RepID=' + repidtest;
-		if (repidtest == "" || repidtest == null || repidtest == "0") {
-			var urlpartrep = '&RepID=106860';
-		} else {
-			var urlpartrep = '&RepID=' + repidtest;
-		}
-
-		var cooktest = Cookies.get('dara');
-		if (cooktest == "" || cooktest == null) {
-			// Set product count (variable and cookie) when first item is clicked
-			var prodcount = 1;
-            Cookies.set('prodcount', prodcount, { expires: 1/48 } );
-
-			// Get href value from clicked anchor tag, build product info, and set cookie
-			var darhref = $(this).attr('href');
-			var itemnum = prodcount - 1;
-			var prodval = '&item' + itemnum + '=' + darhref + '&qnt' + itemnum + '=1';
-			Cookies.set('dara', prodval, { expires: 1/48 } );
-
-			// Return cookie value, build url and update cart link
-			var cartlink = Cookies.get('dara');
-			var carturl = urlpart0 + prodcount + cartlink + urlpartreturn + urlpartsignup + urlpartrep;
-			Cookies.set('cartpath', carturl, { expires: 1/48 } );
-			$('#cart a').attr( 'href', carturl );
-
-			// Update product count in cart link text
-			//$('#cart-total').text( prodcount );
-		} else {
-			// Update product count (variable and cookie) each time an item is clicked
-			var prodcount = parseInt(Cookies.get('prodcount'));
-			prodcount++;
-			Cookies.set('prodcount', prodcount, { expires: 1/48 } );
-
-			// Get href value from clicked anchor tag, update cookie and cart link
-			var darhref = $(this).attr('href');
-			var itemnum = prodcount - 1;
-			var prodval = '&item' + itemnum + '=' + darhref + '&qnt' + itemnum + '=1';
-			var cartlink = Cookies.get('dara');
-			var cartlinknew = cartlink + prodval;
-			Cookies.set('dara', cartlinknew, { expires: 1/48 } );
-			var carturl = urlpart0 + prodcount + cartlinknew + urlpartreturn + urlpartsignup + urlpartrep;
-			Cookies.set('cartpath', carturl, { expires: 1/48 } );
-			$('#cart a').attr( 'href', carturl );
-
-			// Update product count in cart link text
-			//$('#cart-total').text( cartQty );
-		}
 		return false;
-    })
+    });
 
 	$('.btn-addToCart').click(function() {
-        
-        // CHRIS
         addItemToCart($(this).attr('href'), 1);
         refresh();
-        
-        var urlpart0 = 'https://extranet.securefreedom.com/GHTHealth/Order/shop.asp?itemCount=';
-		var urlpartreturn = '&ReturnURL=http://vibrantnutra.com/vibrantshop.aspx';
-		var urlpartsignup = '&SignupType=';
-		var urlpartrep = '';
-
-		var repidtest = Cookies.get(itemnum);
-//		var urlpartrep = '&RepID=' + repidtest;
-		if (repidtest == "" || repidtest == null || repidtest == "0") {
-			var urlpartrep = '&RepID=106860';
-		} else {
-			var urlpartrep = '&RepID=' + repidtest;
-		}
-
-		var cooktest = Cookies.get('dara');
-		if (cooktest == "" || cooktest == null) {
-			// Set product count (variable and cookie) when first item is clicked
-			var prodcount = 1;
-            Cookies.set('prodcount', prodcount, { expires: 1/48 } );
-
-			// Get href value from clicked anchor tag, build product info, and set cookie
-			var darhref = $(this).attr('href');
-			var itemnum = prodcount - 1;
-			var prodval = '&item' + itemnum + '=' + darhref + '&qnt' + itemnum + '=1';
-			Cookies.set('dara', prodval, { expires: 1/48 } );
-
-			// Return cookie value, build url and update cart link
-			var cartlink = Cookies.get('dara');
-			var carturl = urlpart0 + prodcount + cartlink + urlpartreturn + urlpartsignup + urlpartrep;
-			Cookies.set('cartpath', carturl, { expires: 1/48 } );
-			$('#cart a').attr( 'href', carturl );
-
-			// Update product count in cart link text
-			//$('#cart-total').text( prodcount );
-		} else {
-			// Update product count (variable and cookie) each time an item is clicked
-			var prodcount = parseInt(Cookies.get('prodcount'));
-			prodcount++;
-			Cookies.set('prodcount', prodcount, { expires: 1/48 } );
-
-			// Get href value from clicked anchor tag, update cookie and cart link
-			var darhref = $(this).attr('href');
-			var itemnum = prodcount - 1;
-			var prodval = '&item' + itemnum + '=' + darhref + '&qnt' + itemnum + '=1';
-			var cartlink = Cookies.get('dara');
-			var cartlinknew = cartlink + prodval;
-			Cookies.set('dara', cartlinknew, { expires: 1/48 } );
-			var carturl = urlpart0 + prodcount + cartlinknew + urlpartreturn + urlpartsignup + urlpartrep;
-			Cookies.set('cartpath', carturl, { expires: 1/48 } );
-			$('#cart a').attr( 'href', carturl );
-
-			// Update product count in cart link text
-			//$('#cart-total').text( cartQty );
-            
-            //console.log(prodval);
-		}
+                              
 		return false;
-	})
+	});
 
-	function bake_cookie(name, value) {
-		var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
-		document.cookie = cookie;
-	}
-
-	function read_cookie(name) {
-		var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
-		result && (result = JSON.parse(result[1]));
-		return result;
-	}    
-
-	$('#clearcook').click(function() {
-                
+	$('#clearcook').click(function() { 
         cart = [];
         Cookies.remove('cartCookie');
         refresh();
         console.log(cart)
         urlPrint = ''
         
-		// Clear cookies and reset cart link and count
-		Cookies.remove('dara');
-		Cookies.remove('tProdID');
-		Cookies.remove('tProdQty');
-		//$('#cart a').attr( 'href', '#' );
-		//$('#cart-total').text( '0' );
-		//$('.result-prodID').text( '0' );
-		//$('.result-prodQuantity').text( '0' );
 		return false;
 	})
+    
 </script>
 </body>
 </html>
