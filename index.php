@@ -33,7 +33,6 @@
 		</div> <!-- .product -->
 
 		<a id="clearcook" href="#">clear cookie</a>
-        <input type="submit" class="submit-updateProduct" value="Update Cart">
 
 		<section id="cart-view">
 		    <ul>
@@ -50,17 +49,22 @@
                 //innerHTML to get return
                 output += "<li>"
                     +"<img id='prod-id-' src='domain/directory/imageName'>"
-                    +"<span class='prod-name prod-name-"+cart[i].id+"'>"+cart[i].id+"</span>"
-                
-                    +"<form id='prod-qty'>"
-                        +"<input class='prod-input' id='prodUpdate' type='number' name='"+cart[i].id+"' data-name='"+cart[i].id+"' value='"+cart[i].qty+"'>"
-                        +"<input type='submit' value='update'>" //for submit button use FORM to get relationship (shouldn't need form action because we're using JS -- maybe need get?  probably not)
-                    +"</form>"
-                
+                    +"<span class='prod-name prod-name-"+cart[i].id+"'>"+cart[i].id+"</span>"    
+                    +"<select class='prod-quantity qtySelect' id='"+cart[i].id+"' data-name='"+cart[i].id+"'/>"
                     +"<a class='delete-prod' onclick='removeFromCart("+cart[i].id+")'>X</a>"
                     +"</li>"
             }
             $("#cart-view").html(output);
+            
+            for(var i in cart) {
+                var $selectMax = 25;
+                var $select2 = $("#"+cart[i].id);
+                var set = cart[i].qty;
+                for(j=1; j<$selectMax; j++){
+                    $select2.append($('<option></option>').val(j).html(j));
+                }
+                $select2.val(cart[i].qty);
+            }
         }
         
         var Item = function(id, qty){
@@ -126,9 +130,9 @@
         function refresh(){
             refreshCart();
             printLink();
-            displayCart();
             storeArray(cart);
-            //console.log(cart);
+            displayCart();
+            console.log(cart);
         }
         
         function setCountForItem(id, qty){
@@ -168,13 +172,15 @@
 	$(function(){
 		var $selectMax = 100;
 		var $select = $(".selQty");
+        //var $select2 = $(".qtySelect");
 		for (i=1;i<=$selectMax;i++){
 			$select.append($('<option></option>').val(i).html(i));
+            //$select2.append($('<option></option>').val(i).html(i));
 		}
-        //document.getElementById("selQty").value = '33';
+        //$select2.val('44');
 	});
     
-    $("#cart-view").on("change", ".prod-input", function(event){
+    $("#cart-view").on("change", ".prod-quantity", function(event){
         var name = $(this).attr("data-name");
         var count = Number($(this).val());
         if (count > 0) {
@@ -192,10 +198,11 @@
         return false;
 	});
     
-    $('.submit-updateProduct').click(function() {
-        console.log(document.getElementsByClassName('prod-input')); 
-        
-        return false;
+    $('.btn-addToCart').click(function() {
+        addItemToCart($(this).attr('href'), 1);
+        refresh();
+                              
+		return false;
 	});
     
     $('.btn-removeFromCart').click(function(){
@@ -204,13 +211,6 @@
 
 		return false;
     });
-
-	$('.btn-addToCart').click(function() {
-        addItemToCart($(this).attr('href'), 1);
-        refresh();
-                              
-		return false;
-	});
 
 	$('#clearcook').click(function() { 
         cart = [];
