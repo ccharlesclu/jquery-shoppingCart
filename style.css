@@ -1,62 +1,74 @@
-html {
-    background: #e6e9e9;
-    background-image: linear-gradient(270deg, rgb(230, 233, 233) 0%, rgb(216, 221, 221) 100%);
-    -webkit-font-smoothing: antialiased;
+@charset "utf-8";
+/* CSS Document */
+
+* {
+	padding: 0;
+	margin: 0;
 }
 
-body {
-    background: #fff;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
-    color: #545454;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    margin: 0 auto;
-    max-width: 800px;
-    padding: 2em 2em 4em;
+#page {
+	position: relative;
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #222;
-    font-weight: 600;
-    line-height: 1.3;
+h1 {
+	margin: 16px 0;
 }
 
-h2 {
-    margin-top: 1.3em;
+#cart {
+	position: relative;
+	float: right;
 }
 
-a {
-    color: #0083e8;
+.product {
+	position: relative;
+	float: left;
+	width: 200px;
+	margin: 0 50px 0 0;
 }
 
-b, strong {
-    font-weight: 600;
+.product-image {
+	display: block;
+	width: 100%;
+	height: 200px;
+	background: #0CF;
+	text-align: center;
 }
 
-samp {
-    display: none;
+.product-image:before {
+	content: 'product';
+	position: relative;
+	top: 40%;
+	color: #666;
+	font-weight: bold;
 }
 
-img {
-    animation: colorize 2s cubic-bezier(0, 0, .78, .36) 1;
-    background: transparent;
-    border: 10px solid rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
-    display: block;
-    margin: 1.3em auto;
-    max-width: 95%;
+.prod-02 .product-image {
+	background: #0FC;
 }
 
-@keyframes colorize {
-    0% {
-        -webkit-filter: grayscale(100%);
-        filter: grayscale(100%);
-    }
-    100% {
-        -webkit-filter: grayscale(0%);
-        filter: grayscale(0%);
-    }
+.prod-03 .product-image {
+	background: #FF3;
+}
+
+.btn-addToCart {
+	display: block;
+	margin: 12px auto 30px auto;
+	width: 70%;
+	padding: 6px 12px;
+	background: #666;
+	border-radius: 8px;
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+}
+
+#replicated {
+	clear: left;
+	display: block;
+	margin-bottom: 60px;
 }
 
 #cart-view {
