@@ -9,7 +9,7 @@
     
 <body>
 	<div id="page">
-		<div id="cart"><a href="#">cart (<span id="cart-total">cartCount</span>)</a></div>
+		<div id="cart"><a id="cart-ref" href="#">cart (<span id="cart-total">cartCount</span>)</a></div>
 
 		<h1>Cart Test</h1>
 
@@ -125,6 +125,7 @@
                 urlPrint = '';
             }
             console.log(urlPrint);
+            $('a#cart-ref').attr('href', urlPrint);
         }
         
         function refresh(){
@@ -220,7 +221,9 @@
         urlPrint = ''
         
 		return false;
-	})
+	});
+    
+    
     
 </script>
 </body>
