@@ -14,21 +14,26 @@
 		<h1>Cart Test</h1>
 
 		<div class="product prod-01">
-			<div class="product-image"></div>
+			<h1 class="entry-title">Active Systemic Enzymes</h1>
+			<div class="product-image"><img src="http://www.vibrantnutra.com/wp-content/uploads/2016/06/ActiveSystemicEnzymes_60caps_1703.png" class="wp-post-image" ></div>
 			<form onSubmit="addItemToCart();">
+				<label class="dgo-product-price"><span><sup>$</sup>27.00</span></label>
 				<select class="prod-quantity selQty"></select>
 				<input type="submit" class="submit-addToCart" value="Add to Cart" href="106100">
 			</form>
 		</div> <!-- .product -->
 
 		<div class="product prod-02">
-			<div class="product-image"></div>
-			<a class="btn-addToCart" href="105100"0>Add to cart</a>
-            <a class="btn-removeFromCart" href="105100"0>Remove from cart</a>
+			<h1 class="entry-title">Clarifiber</h1>
+			<div class="product-image"><img src="http://www.vibrantnutra.com/wp-content/uploads/2016/06/Clarifiber_1703.png" class="wp-post-image"></div>
+			<div class="dgo-product-price"><span><sup>$</sup>22.50</span></div>
+			<a class="btn-addToCart" href="105100">Add to cart</a>
 		</div> <!-- .product -->
 
 		<div class="product prod-03">
-			<div class="product-image"></div>
+			<h1 class="entry-title">KidsLac</h1>
+			<div class="product-image"><img src="http://www.vibrantnutra.com/wp-content/uploads/2016/06/KidsLac_SourApple_front_1703.png" class="wp-post-image"></div>
+			<div class="dgo-product-price"><span><sup>$</sup>19.95</span></div>
 			<a class="btn-addToCart" href="104150">Add to cart</a>
 		</div> <!-- .product -->
 
