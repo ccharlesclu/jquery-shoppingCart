@@ -14,26 +14,26 @@
 		<h1>Cart Test</h1>
 
 		<div class="product prod-01">
-			<h1 class="entry-title">Active Systemic Enzymes</h1>
-			<div class="product-image"><img src="http://www.vibrantnutra.com/wp-content/uploads/2016/06/ActiveSystemicEnzymes_60caps_1703.png" class="wp-post-image" ></div>
+			<h1 class="entry-title-106100">Active Systemic Enzymes</h1>
+			<div class="product-image-106100"><img src="http://www.vibrantnutra.com/wp-content/uploads/2016/06/ActiveSystemicEnzymes_60caps_1703.png" class="wp-post-image" ></div>
 			<form onSubmit="addItemToCart();">
-				<label class="dgo-product-price"><span><sup>$</sup>27.00</span></label>
+				<label class="dgo-product-price-106100"><span><sup>$</sup>27.00</span></label>
 				<select class="prod-quantity selQty"></select>
 				<input type="submit" class="submit-addToCart" value="Add to Cart" href="106100">
 			</form>
 		</div> <!-- .product -->
 
 		<div class="product prod-02">
-			<h1 class="entry-title">Clarifiber</h1>
-			<div class="product-image"><img src="http://www.vibrantnutra.com/wp-content/uploads/2016/06/Clarifiber_1703.png" class="wp-post-image"></div>
-			<div class="dgo-product-price"><span><sup>$</sup>22.50</span></div>
+			<h1 class="entry-title-105100">Clarifiber</h1>
+			<div class="product-image-105100"><img src="http://www.vibrantnutra.com/wp-content/uploads/2016/06/Clarifiber_1703.png" class="wp-post-image"></div>
+			<div class="dgo-product-price-105100"><span><sup>$</sup>22.50</span></div>
 			<a class="btn-addToCart" href="105100">Add to cart</a>
 		</div> <!-- .product -->
 
 		<div class="product prod-03">
-			<h1 class="entry-title">KidsLac</h1>
-			<div class="product-image"><img src="http://www.vibrantnutra.com/wp-content/uploads/2016/06/KidsLac_SourApple_front_1703.png" class="wp-post-image"></div>
-			<div class="dgo-product-price"><span><sup>$</sup>19.95</span></div>
+			<h1 class="entry-title-104150">KidsLac</h1>
+			<div class="product-image-104150"><img src="http://www.vibrantnutra.com/wp-content/uploads/2016/06/KidsLac_SourApple_front_1703.png" class="wp-post-image"></div>
+			<div class="dgo-product-price-104150"><span><sup>$</sup>19.95</span></div>
 			<a class="btn-addToCart" href="104150">Add to cart</a>
 		</div> <!-- .product -->
 
@@ -53,9 +53,11 @@
                 //need to do update button - either all in one (prod-name-id to array) or by line
                 //innerHTML to get return
                 output += "<li>"
-                    +"<img id='prod-id-' src='domain/directory/imageName'>"
-                    +"<span class='prod-name prod-name-"+cart[i].id+"'>"+cart[i].id+"</span>"    
+                    +"<img id='prod-id-' src='"+cart[i].img+"' style='max-width:25px; max-height:50px;'>"
+                    //+"<span class='prod-id prod-id-"+cart[i].id+"'>"+cart[i].id+"</span>"
+                    +"<span class='prod-name prod-name-"+cart[i].name+"'>"+cart[i].name+"</span>"
                     +"<select class='prod-quantity qtySelect' id='"+cart[i].id+"' data-name='"+cart[i].id+"'/>"
+                    +"<span class='prod-total prod-total-"+cart[i].id+"'>x $"+cart[i].price+" =                     $"+parseFloat(cart[i].price*cart[i].qty).toFixed(2)+"</span>"
                     +"<a class='delete-prod' onclick='removeFromCart("+cart[i].id+")'>X</a>"
                     +"</li>"
             }
@@ -72,22 +74,25 @@
             }
         }
         
-        var Item = function(id, qty){
+        var Item = function(id, name, qty, img, price){
             this.id = id
+            this.name = name
             this.qty = qty
+            this.img = img
+            this.price = price
         };
         
         var cart = [];
         var cartCount = 0;
         
-        function addItemToCart(id, qty){
+        function addItemToCart(id, name, qty, img, price){
             for(var i in cart){
                 if (cart[i].id == id) {
                     cart[i].qty += qty;
                     return;
                 }
             }
-            var item = new Item(id, qty);
+            var item = new Item(id, name, qty, img, price);
             cart.push(item);
         }
         
@@ -129,7 +134,7 @@
             } else {
                 urlPrint = '';
             }
-            console.log(urlPrint);
+            // console.log(urlPrint);
             $('a#cart-ref').attr('href', urlPrint);
         }
         
@@ -198,14 +203,20 @@
     
     $('.submit-addToCart').click(function() {        
         var selQty = $('.selQty').val();
-        addItemToCart($(this).attr('href'), parseInt(selQty));
+        var prod_name = $('.entry-title-'+$(this).attr('href')).text();
+        var img_src  = $( '.product-image-'+$(this).attr('href')+' > img' ).attr( 'src' );
+        var prod_price  = parseFloat($( '.dgo-product-price-'+$(this).attr('href')).text().replace("$","")).toFixed(2);
+        addItemToCart($(this).attr('href'), prod_name, parseInt(selQty), img_src, prod_price);
         refresh();
         
-        return false;
-	});
+            return false;
+        });
     
     $('.btn-addToCart').click(function() {
-        addItemToCart($(this).attr('href'), 1);
+        var prod_name = $('.entry-title-'+$(this).attr('href')).text();
+        var img_src  = $( '.product-image-'+$(this).attr('href')+' > img' ).attr( 'src' );
+        var prod_price  = parseFloat($( '.dgo-product-price-'+$(this).attr('href')).text().replace("$","")).toFixed(2);
+        addItemToCart($(this).attr('href'), prod_name, 1, img_src, prod_price);
         refresh();
                               
 		return false;
