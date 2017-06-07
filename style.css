@@ -100,6 +100,10 @@ h1 {
     vertical-align: middle;
 }
 
+ul#subtotal > li {
+    float:right;
+}
+
 .delete-prod,
 #cart-view input[type="submit"] {
     cursor: pointer;
