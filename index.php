@@ -57,8 +57,8 @@
                     //+"<span class='prod-id prod-id-"+cart[i].id+"'>"+cart[i].id+"</span>"
                     +"<span class='prod-name prod-name-"+cart[i].name+"'>"+cart[i].name+"</span>"
                     +"<select class='prod-quantity qtySelect' id='"+cart[i].id+"' data-name='"+cart[i].id+"'/>"
-                    +"<span class='prod-total prod-total-"+cart[i].id+"'>x $"+cart[i].price+" =                     $"+parseFloat(cart[i].price*cart[i].qty).toFixed(2)+"</span>"
-                    +"<a class='delete-prod' onclick='removeFromCart("+cart[i].id+")'>X</a>"
+                    +"<span class='prod-total prod-total-"+cart[i].id+"'>@ $"+cart[i].price+" <span class='sym-eq'>=</span>                     $"+parseFloat(cart[i].price*cart[i].qty).toFixed(2)+"</span>"
+                    +"<a class='delete-prod' onclick='removeFromCart("+cart[i].id+")'>Delete</a>"
                     +"</li>"
             }
             $("#cart-view").html(output);
