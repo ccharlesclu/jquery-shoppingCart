@@ -49,22 +49,31 @@
     <script>
         function displayCart(){
             var output = "";
-            for(var i in cart){
-                //need to do update button - either all in one (prod-name-id to array) or by line
-                //innerHTML to get return
-                output += "<li>"
-                    +"<img id='prod-id-' src='"+cart[i].img+"' style='max-width:25px; max-height:50px;'>"
-                    //+"<span class='prod-id prod-id-"+cart[i].id+"'>"+cart[i].id+"</span>"
-                    +"<span class='prod-name prod-name-"+cart[i].name+"'>"+cart[i].name+"</span>"
-                    +"<select class='prod-quantity qtySelect' id='"+cart[i].id+"' data-name='"+cart[i].id+"'/>"
-                    +"<span class='prod-total prod-total-"+cart[i].id+"'>@ $"+cart[i].price+" <span class='sym-eq'>=</span>                     $"+parseFloat(cart[i].price*cart[i].qty).toFixed(2)+"</span>"
-                    +"<a class='delete-prod' onclick='removeFromCart("+cart[i].id+")'>Delete</a>"
-                    +"</li>"
+            var subtotal = 0;
+            if (cart.length == 0) {
+                output = "<center>Your cart is empty.</center>"
+            } else {
+                for(var i in cart){
+                    output += "<li>"
+                        +"<img id='prod-id-' src='"+cart[i].img+"' style='max-width:25px; max-height:50px;'>"
+                        //+"<span class='prod-id prod-id-"+cart[i].id+"'>"+cart[i].id+"</span>"
+                        +"<span class='prod-name prod-name-"+cart[i].name+"'>"+cart[i].name+"</span>"
+                        +"<select class='prod-quantity qtySelect' id='"+cart[i].id+"' data-name='"+cart[i].id+"'/>"
+                        +"<span class='prod-total prod-total-"+cart[i].id+"'>@ $"+cart[i].price+" <span class='sym-eq'>=</span>                     $"+parseFloat(cart[i].price*cart[i].qty).toFixed(2)+"</span>"
+                        +"<a class='delete-prod' onclick='removeFromCart("+cart[i].id+")'>Delete</a>"
+                        +"</li>"
+                    subtotal += cart[i].price*cart[i].qty;
+                }
+                output += "<ul id='subtotal'>"
+                    +"<li>"
+                    +"Subtotal&#9;$"+parseFloat(subtotal).toFixed(2)
+                    +"</li></ul>"
             }
+            
             $("#cart-view").html(output);
             
             for(var i in cart) {
-                var $selectMax = 25;
+                var $selectMax = 101;
                 var $select2 = $("#"+cart[i].id);
                 var set = cart[i].qty;
                 for(j=1; j<$selectMax; j++){
