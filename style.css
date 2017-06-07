@@ -85,7 +85,7 @@ h1 {
     clear: both;
     position: relative;
     display: block;
-    width: 400px;
+    width: 500px;
     padding: 20px;
     border: 3px #999 solid;
     border-radius: 7px;
@@ -97,6 +97,7 @@ h1 {
 
 #cart-view li * {
     margin: 0 10px;
+    vertical-align: middle;
 }
 
 .delete-prod,
@@ -104,6 +105,17 @@ h1 {
     cursor: pointer;
 }
 
+.delete-prod {
+    color: #0066c0;
+    font-size: 12px;
+}
+
+.prod-name {
+    display: inline-block;
+    width: 25%;
+    max-width: 160px;
+}
+
 .prod-quantity {
-    width: 30px;
+    width: 40px;
 }
